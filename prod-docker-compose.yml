@@ -1,0 +1,45 @@
+version: '3.7'
+
+services:
+  db:
+    image: mysql
+    container_name: fligno_db
+    volumes:
+      - "./db/.data:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: test123
+    expose:
+      - "3306"
+    networks:
+      - prod
+
+  client:
+    build: client
+    container_name: fligno_client
+    depends_on:
+      - server
+    ports:
+      - 8080:5000
+    networks:
+      - prod
+
+  server:
+    build:
+      context: ./server
+      args:
+        PHP_VERSION: 7.2
+    container_name: fligno_server
+    ports:
+      - 9090:8000
+    depends_on:
+      - db
+    environment:
+      APP_SECRET: secret123
+    volumes:
+      - "./server:/var/www/fligno"
+    networks:
+      - prod
+
+networks:
+  prod:
+    external: true

@@ -1,0 +1,60 @@
+version: '3.7'
+
+services:
+  db:
+    image: mysql
+    container_name: fligno_db
+    volumes:
+      - "./db/.data:/var/lib/mysql:rw,delegated"
+    environment:
+      MYSQL_DATABASE: fligno
+      MYSQL_USER: fligno_user
+      MYSQL_PASSWORD: test123
+      MYSQL_ROOT_PASSWORD: test123
+    ports:
+      - 3306:33060
+    networks:
+      - internal
+  
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: fligno_phpmyadmin
+    environment: 
+      PMA_HOST: db
+      PMA_PORT: 33060
+    depends_on:
+    - db
+    ports:
+    - "8888:80"
+    networks:
+      - internal
+
+  client:
+    build: client
+    container_name: fligno_client
+    depends_on:
+      - server
+    ports:
+      - 8080:3000
+    command: npm start
+    networks:
+      - public
+
+  server:
+    build: server
+    container_name: fligno_server
+    ports:
+      - 9090:80
+      - 9000:8000
+    depends_on:
+      - db
+    volumes:
+      - "./server:/var/www/html"
+    networks:
+      - internal
+
+networks:
+  public:
+    external: false
+  internal:
+    external: false
