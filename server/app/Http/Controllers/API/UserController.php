@@ -46,8 +46,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $results = $this->users->list();
-        return response()->guestList($results);
+        return respone()->json(User::all());
     }
 
     /**

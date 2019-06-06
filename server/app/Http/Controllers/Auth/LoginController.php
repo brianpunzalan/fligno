@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -40,4 +41,26 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    /**
+     * Login via API
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \App\User $user
+     */
+     public function apiLogin(Request $request) 
+     {
+        if (auth()->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
+            // Authentication passed...
+            $user = auth()->user();
+            $user->api_token = str_random(60);
+            $user->save();
+            return $user;
+        }
+        
+        return response()->json([
+            'error' => 'Unauthenticated user',
+            'code' => 401,
+        ], 401);
+     }
 }
