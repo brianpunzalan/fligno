@@ -492,7 +492,6 @@ module.exports = {
     "allowSamePrecedence": true
    }
   ],
-  "no-mixed-spaces-and-tabs": "error",
   "no-multi-assign": [
    "error"
   ],
@@ -527,7 +526,6 @@ module.exports = {
    }
   ],
   "no-spaced-func": "error",
-  "no-tabs": "error",
   "no-ternary": "off",
   "no-trailing-spaces": [
    "error",

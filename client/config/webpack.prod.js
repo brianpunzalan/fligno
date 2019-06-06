@@ -29,7 +29,7 @@ module.exports = merge(common, {
     new webpack.HashedModuleIdsPlugin(),
     new CleanWebpackPlugin(),
     new Dotenv({
-      path: '../.env.production',
+      path: './.env.development',
     }),
   ],
 });
