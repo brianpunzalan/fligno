@@ -39,3 +39,8 @@ is equal to
 ```
 php artisan list
 ```
+
+To start development initially, please seed first the database with the following command
+```
+docker run -it --rm fligno_server db:seed
+```

@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions';
 import * as actionTypes from '../actions/authActionTypes';
 
 const initialState = {
-  user: null,
+  user: true,
   loading: false,
 };
 

@@ -52,13 +52,14 @@ class LoginController extends Controller
      public function apiLogin(Request $request) 
      {
         $data = $request->input();
-        Log::info('TESTING '. json_encode($request));
         if (auth()->attempt(['email' => $data['email'], 'password' => $data['password']])) {
             // Authentication passed...
             $user = auth()->user();
-            $user->api_token = str_random(60);
-            $user->save();
-            return $user;
+            if ($user->is_admin) {
+                $user->api_token = str_random(60);
+                $user->save();
+                return $user;   
+            }
         }
         
         return response()->json([

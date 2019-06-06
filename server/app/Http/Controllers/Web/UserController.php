@@ -47,7 +47,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('index', ['users' => $this->users->list(2)]);
+        $limit = 8;
+        return view('index', ['users' => $this->users->list($limit)]);
     }
 
     /**
@@ -97,29 +98,5 @@ class UserController extends Controller
     public function show(Request $request, $id)
     {
         return view('pages.profile', ['user' => User::find($id)]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Fligno\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
-    {
-        // 
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \Fligno\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-        Log::info(json_encode($user) . "\n\n\n" . $user->id);
-        return response()->json($this->users->delete($user->id));
     }
 }

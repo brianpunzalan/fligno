@@ -41,8 +41,7 @@
 			@endif
 		</form>
 		@slot('footer')
-			By signing up, you indicate that you have read and agreed to Fligno's 
-			<a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+			If you have time please review our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. It may help you get to know more about the application.
 		@endslot
 	@endcomponent
 	</div>

@@ -6,10 +6,19 @@ ENV PROJECT_PATH=/var/www/html/public \
     APACHE_RUN_GROUP=www-data \
 		COMPOSER_ALLOW_SUPERUSER=1
 
+COPY . /var/www/html
+
 WORKDIR /var/www/html
 
-# Update
-RUN apt-get update && apt-get install git -y
+# Update and Install dependencies
+RUN apt-get update && apt-get install git git-core curl build-essential openssl libssl-dev -y
+
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+
+RUN apt-get install nodejs -y
+
+# Check if NPM was installed
+RUN npm -v
 
 # Create folder for binaries
 RUN mkdir bin
@@ -20,20 +29,24 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
 	php composer-setup.php --install-dir=bin && \
 	php -r "unlink('composer-setup.php');"
 
+COPY package.json /var/www/html
+
+RUN npm install
+
 COPY composer.json /var/www/html
 
 RUN php bin/composer.phar install
 
-COPY .env /var/www/html
-
-COPY package.json /var/www/html
-
 COPY apache-vhost.conf /etc/apache2/sites-available/000-default.conf
-
-COPY . /var/www/html
 
 RUN chown -R $APACHE_RUN_USER:$APACHE_RUN_GROUP $PROJECT_PATH
 
 RUN ["service", "apache2", "start"]
 
+EXPOSE 80
+
 ENTRYPOINT [ "php", "artisan" ]
+
+CMD [ "serve" ]
+
+EXPOSE 8000

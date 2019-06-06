@@ -20,5 +20,8 @@ Route::namespace('API')->middleware('auth:api')->group(function () {
 
 Route::namespace('Auth')->group(function () {
     Route::post('/login', 'LoginController@apiLogin');
-    Route::post('/logout', 'LoginController@apiLogout')->middleware('auth:api');
+});
+
+Route::namespace('Auth')->middleware(['auth:api', 'admin'])->group(function () {
+    Route::post('/logout', 'LoginController@apiLogout');
 });

@@ -69,7 +69,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return response()->guest($user);
+        return response()->json($user);
     }
 
     /**
@@ -81,7 +81,8 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $user = $this->users->update($user->id, $request->input());
+        return response()->json($user);
     }
 
     /**
@@ -92,7 +93,6 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        Log::info(json_encode($user) . "\n\n\n" . $user->id);
         return response()->json($this->users->delete($user->id));
     }
 }
