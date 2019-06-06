@@ -56,7 +56,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function SignIn({ onSubmit }) {
-  console.log(onSubmit);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const classes = useStyles();

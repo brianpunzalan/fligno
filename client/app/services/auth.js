@@ -9,6 +9,6 @@ axios.defaults.headers.common = {
 
 export const signIn = (params) => {
   return axios.post(`${LOGIN}/`, {
-    params,
+    ...params,
   }).then(({ data }) => data);
 };
