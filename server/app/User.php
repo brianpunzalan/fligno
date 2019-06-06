@@ -16,7 +16,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name', 
+        'last_name',
+        'description',
+        'gender',
+        'avatar',
+        'email', 
+        'password',
+        'api_token'
     ];
 
     /**
@@ -36,4 +43,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    public $timestamps = true;
 }

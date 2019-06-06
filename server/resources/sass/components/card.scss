@@ -1,0 +1,21 @@
+.card {
+	&.profile {
+		cursor: pointer;
+		max-height: 400px;
+		.card-body {
+			> .card-text{
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
+			}
+		}
+		a {
+			text-decoration: none;
+			color: initial;
+		}
+		&:hover {
+			transform: scale(1.1)
+		}
+		transition:	transform .1s ease-in-out;
+	}
+}
