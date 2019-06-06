@@ -6,8 +6,15 @@ Simple Web Application built with Laravel + React.
 
 To start the containers, enter the following:
 > option `-d` to run in background
+
+For Dev
 ```
-docker-compose up -d
+docker-compose -f dev-docker-compose.yml up -d
+```
+
+For Prod
+```
+docker-compose -f prod-docker-compose.yml up -d
 ```
 
 To stop the containers, enter the following

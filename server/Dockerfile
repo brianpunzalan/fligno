@@ -6,8 +6,6 @@ ENV PROJECT_PATH=/var/www/html/public \
     APACHE_RUN_GROUP=www-data \
 		COMPOSER_ALLOW_SUPERUSER=1
 
-COPY . /var/www/html
-
 WORKDIR /var/www/html
 
 # Update
@@ -22,19 +20,20 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
 	php composer-setup.php --install-dir=bin && \
 	php -r "unlink('composer-setup.php');"
 
-COPY ./.env /var/www/html
-
-COPY ./composer.json /var/www/html
-
-COPY ./package.json /var/www/html
-
-COPY ./apache-vhost.conf /etc/apache2/sites-available/000-default.conf
-
-RUN chown -R $APACHE_RUN_USER:$APACHE_RUN_GROUP $PROJECT_PATH
+COPY composer.json /var/www/html
 
 RUN php bin/composer.phar install
+
+COPY .env /var/www/html
+
+COPY package.json /var/www/html
+
+COPY apache-vhost.conf /etc/apache2/sites-available/000-default.conf
+
+COPY . /var/www/html
+
+RUN chown -R $APACHE_RUN_USER:$APACHE_RUN_GROUP $PROJECT_PATH
 
 RUN ["service", "apache2", "start"]
 
 ENTRYPOINT [ "php", "artisan" ]
-CMD ["serve"]

@@ -7,7 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
 const common = require('./webpack.common');
 
-const rootPath = path.join(__dirname, '../client');
+const rootPath = path.join(__dirname, '../app');
 
 module.exports = merge(common, {
   mode: 'production',

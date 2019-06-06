@@ -5,14 +5,15 @@ services:
     image: mysql
     container_name: fligno_db
     volumes:
-      - "./db/.data:/var/lib/mysql:rw,delegated"
+      - "./db/.data:/var/lib/mysql"
     environment:
       MYSQL_DATABASE: fligno
       MYSQL_USER: fligno_user
       MYSQL_PASSWORD: test123
       MYSQL_ROOT_PASSWORD: test123
-    ports:
-      - 3306:33060
+    expose:
+      - 33060
+      - 3306
     networks:
       - internal
   
@@ -21,11 +22,11 @@ services:
     container_name: fligno_phpmyadmin
     environment: 
       PMA_HOST: db
-      PMA_PORT: 33060
+      PMA_PORT: 3306
     depends_on:
     - db
     ports:
-    - "8888:80"
+    - 8888:80
     networks:
       - internal
 
@@ -36,7 +37,7 @@ services:
       - server
     ports:
       - 8080:3000
-    command: npm start
+    command: npm run webpack-dev
     networks:
       - public
 
@@ -45,7 +46,6 @@ services:
     container_name: fligno_server
     ports:
       - 9090:80
-      - 9000:8000
     depends_on:
       - db
     volumes:

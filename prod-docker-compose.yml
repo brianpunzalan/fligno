@@ -2,16 +2,33 @@ version: '3.7'
 
 services:
   db:
-    image: mysql
+    image: mysql:5.7
     container_name: fligno_db
     volumes:
-      - "./db/.data:/var/lib/mysql"
+      - "./db/.data:/var/lib/mysql:rw,delegated"
     environment:
+      MYSQL_DATABASE: fligno
+      MYSQL_USER: fligno_user
+      MYSQL_PASSWORD: test123
       MYSQL_ROOT_PASSWORD: test123
     expose:
-      - "3306"
+      - 33060
+      - 3306
     networks:
-      - prod
+      - internal
+  
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: fligno_phpmyadmin
+    environment: 
+      PMA_HOST: db
+      PMA_PORT: 3306
+    depends_on:
+    - db
+    ports:
+    - "8888:80"
+    networks:
+      - internal
 
   client:
     build: client
@@ -21,25 +38,22 @@ services:
     ports:
       - 8080:5000
     networks:
-      - prod
+      - public
 
   server:
-    build:
-      context: ./server
-      args:
-        PHP_VERSION: 7.2
+    build: server
     container_name: fligno_server
     ports:
-      - 9090:8000
+      - 9090:80
     depends_on:
       - db
-    environment:
-      APP_SECRET: secret123
     volumes:
-      - "./server:/var/www/fligno"
+      - "./server:/var/www/html"
     networks:
-      - prod
+      - internal
 
 networks:
-  prod:
-    external: true
+  public:
+    external: false
+  internal:
+    external: false
