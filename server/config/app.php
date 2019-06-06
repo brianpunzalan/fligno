@@ -169,12 +169,12 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-        App\Providers\UserMacroServiceProvider::class,
+        Fligno\Providers\AppServiceProvider::class,
+        Fligno\Providers\AuthServiceProvider::class,
+        // Fligno\Providers\BroadcastServiceProvider::class,
+        Fligno\Providers\EventServiceProvider::class,
+        Fligno\Providers\RouteServiceProvider::class,
+        Fligno\Providers\UserMacroServiceProvider::class,
 
     ],
 

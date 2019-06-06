@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Web;
+namespace Fligno\Http\Controllers\Web;
 
-use App\User;
-use App\Http\Controllers\Controller;
+use Fligno\User;
+use Fligno\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Repositories\UserRepository;
+use Fligno\Repositories\UserRepository;
 use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
@@ -90,8 +90,8 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
-     * @param string $id \App\User id
+     * @param  \Fligno\User  $user
+     * @param string $id \Fligno\User id
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $id)
@@ -103,7 +103,7 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  \Fligno\User  $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
@@ -114,7 +114,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  \Fligno\User  $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)

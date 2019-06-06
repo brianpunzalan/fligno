@@ -15,8 +15,10 @@ use Illuminate\Http\Request;
 
 Route::namespace('API')->middleware('auth:api')->group(function () {
     Route::apiResource('user', 'UserController');
+    
 });
 
-Route::namespace('Auth')->middleware('guest')->group(function () {
+Route::namespace('Auth')->group(function () {
     Route::post('/login', 'LoginController@apiLogin');
+    Route::post('/logout', 'LoginController@apiLogout')->middleware('auth:api');
 });

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repositories;
+namespace Fligno\Repositories;
 
-use App\User;
+use Fligno\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;

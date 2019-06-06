@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Providers;
+namespace Fligno\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\User;
+use Fligno\User;
 
 class AppServiceProvider extends ServiceProvider
 {
