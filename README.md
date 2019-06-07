@@ -19,7 +19,7 @@ docker-compose -f prod-docker-compose.yml up -d
 
 To stop the containers, enter the following
 ```
-docker-compose down
+docker-compose -f <docker-file> down
 ```
 
 If you have changed the Dockerfiles on one of the services, please rebuild the images with the following command:
@@ -27,20 +27,22 @@ If you have changed the Dockerfiles on one of the services, please rebuild the i
 docker-compose build
 ```
 
-To execute Artisan commands, enter the following
+To execute commands on the server, enter the following
 ```
 docker run -it --rm fligno_server <command>
 ```
 Example:
 ```
-docker run -it --rm fligno_server list
-```
-is equal to
-```
-php artisan list
+docker run -it --rm fligno_server php artisan list
 ```
 
-To start development initially, please seed first the database with the following command
+To start development initially, please start the apache2 server, migrate and seed the database
 ```
-docker run -it --rm fligno_server db:seed
+docker exec -it fligno_server service apache2 restart
+docker exec -it fligno_server php artisan migrate:fresh
+docker exec -it fligno_server php artisan db:seed
+```
+If the storage folder was still not linked to public folder, enter the following (this is to show images)
+```
+docker exec -it fligno_server php artisan storage:link
 ```

@@ -24,9 +24,9 @@ $factory->define(User::class, function (Faker $faker) {
         'description' => $faker->paragraph,
         'gender' => $faker->randomElement(['Male', 'Female', 'Others']),
         'email' => $faker->unique()->safeEmail,
-        'avatar' => $faker->imageUrl(400, 400),
+        'avatar' => 'avatars/' . $faker->image(storage_path('app/public/avatars'), 400, 400, 'people', false),
         'email_verified_at' => now(),
-        'api_tokens' => Str::random(60),
+        'api_token' => Str::random(60),
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'remember_token' => Str::random(10),
     ];

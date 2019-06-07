@@ -4,18 +4,49 @@ ENV PROJECT_PATH=/var/www/html/public \
     PROJECT_URL=localhost \
 		APACHE_RUN_USER=www-data \
     APACHE_RUN_GROUP=www-data \
+		PHP_INI_DIR=/usr/local/etc/php \
 		COMPOSER_ALLOW_SUPERUSER=1
+
+RUN mv /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
 
 COPY . /var/www/html
 
 WORKDIR /var/www/html
 
 # Update and Install dependencies
-RUN apt-get update && apt-get install git git-core curl build-essential openssl libssl-dev -y
+RUN apt-get update && apt-get install -y \
+	git \
+	git-core \
+	curl \
+	build-essential \
+	openssl \
+	libssl-dev \
+	libfreetype6-dev \
+	libpng-dev \
+	libwebp-dev \
+	libjpeg62-turbo-dev \
+	libgmp-dev
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 
 RUN apt-get install nodejs -y
+
+RUN docker-php-ext-install \
+	pdo \
+	pdo_mysql \
+	gd
+	# bcmath \
+	# ctype \
+	# openssl \
+	# mbstring \
+	# json \
+	# tokenizer \
+	# xml \
+	# xmlreader \
+	# xmlwriter \
+	# ftp \
+	# hash \
+	# mysqli
 
 # Check if NPM was installed
 RUN npm -v
@@ -41,12 +72,12 @@ COPY apache-vhost.conf /etc/apache2/sites-available/000-default.conf
 
 RUN chown -R $APACHE_RUN_USER:$APACHE_RUN_GROUP $PROJECT_PATH
 
-RUN ["service", "apache2", "start"]
+RUN a2enmod rewrite
 
 EXPOSE 80
 
 ENTRYPOINT [ "php", "artisan" ]
 
-CMD [ "serve" ]
+CMD [ "serve", "&&", "service", "apache2", "restart" ]
 
 EXPOSE 8000

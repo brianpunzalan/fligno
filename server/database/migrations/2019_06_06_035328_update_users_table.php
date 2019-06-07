@@ -21,7 +21,8 @@ class UpdateUsersTable extends Migration
             $table->boolean('is_admin')->after('gender')
                     ->default(false);
             $table->string('avatar')->after('is_admin');
-            $table->text('description')->after('avatar');
+            $table->text('description')->after('avatar')
+                    ->nullable();
             $table->string('api_token', 80)->after('password')
                     ->unique()
                     ->nullable()

@@ -3,6 +3,8 @@
 use Fligno\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 
 class UsersTableSeeder extends Seeder
 {
@@ -11,7 +13,7 @@ class UsersTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
         DB::table('users')->truncate();
 
@@ -21,6 +23,10 @@ class UsersTableSeeder extends Seeder
             'last_name' => env('INITIAL_ADMIN_LASTNAME', 'Administrator'),
             'email' => env('INITIAL_ADMIN_EMAIL', 'admin@fligno.com'),
             'password' => bcrypt(env('INITIAL_ADMIN_PASSWORD', 'test123')),
+            'gender' => 'Others',
+            'avatar' => 'avatars/' . $faker->image(storage_path('app/public/avatars'), 400,400, 'people', false),
+            'description' => 'I am the administrator',
+            'api_token' => Str::random(60),
         ]);
 
         // Faker generator
