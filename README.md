@@ -46,3 +46,16 @@ If the storage folder was still not linked to public folder, enter the following
 ```
 docker exec -it fligno_server php artisan storage:link
 ```
+
+### Note
+Please use sample `.env.example` on fligno_server container. Also please check the following links below
+
+	phpmyadmin: localhost:8888
+		username: root
+		password: test123
+	fligno_admin: localhost:8080
+		email: admin@fligno.com
+		password: test123
+	fligno_server: localhost:9090
+		email: admin@fligno.com
+		password: test123
