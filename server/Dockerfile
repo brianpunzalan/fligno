@@ -78,6 +78,6 @@ EXPOSE 80
 
 ENTRYPOINT [ "php", "artisan" ]
 
-CMD [ "serve", "&&", "service", "apache2", "restart" ]
+CMD [ "serve" ]
 
 EXPOSE 8000
