@@ -38,7 +38,6 @@ docker run -it --rm fligno_server php artisan list
 
 To start development initially, please start the apache2 server, migrate and seed the database
 ```
-docker exec -it fligno_server service apache2 restart
 docker exec -it fligno_server php artisan migrate:fresh
 docker exec -it fligno_server php artisan db:seed
 ```

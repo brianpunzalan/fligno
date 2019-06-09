@@ -18,35 +18,37 @@ RUN apt-get update && apt-get install -y \
 	git \
 	git-core \
 	curl \
+	nano \
+	netcat \
 	build-essential \
 	openssl \
-	libssl-dev \
+	sqlite3 \
 	libfreetype6-dev \
-	libpng-dev \
 	libwebp-dev \
 	libjpeg62-turbo-dev \
-	libgmp-dev
+	libpng-dev \
+	libgmp-dev \
+	libldap2-dev \
+	libsqlite3-dev
 
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
-
-RUN apt-get install nodejs -y
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-webp-dir=/usr/include/  --with-jpeg-dir=/usr/include/
 
 RUN docker-php-ext-install \
 	pdo \
 	pdo_mysql \
-	gd
-	# bcmath \
-	# ctype \
-	# openssl \
-	# mbstring \
-	# json \
-	# tokenizer \
-	# xml \
-	# xmlreader \
-	# xmlwriter \
-	# ftp \
-	# hash \
-	# mysqli
+	gd \
+	pdo_sqlite \
+	zip \
+	gmp \
+	bcmath \
+	pcntl \
+	ldap \
+	sysvmsg \
+	exif
+
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+
+RUN apt-get install nodejs -y
 
 # Check if NPM was installed
 RUN npm -v
@@ -75,9 +77,3 @@ RUN chown -R $APACHE_RUN_USER:$APACHE_RUN_GROUP $PROJECT_PATH
 RUN a2enmod rewrite
 
 EXPOSE 80
-
-ENTRYPOINT [ "php", "artisan" ]
-
-CMD [ "serve" ]
-
-EXPOSE 8000
