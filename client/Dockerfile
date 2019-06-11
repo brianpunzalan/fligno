@@ -1,5 +1,9 @@
 FROM node
 
+# Update and install dev tools
+RUN apt-get update && apt-get install -y \
+	vim
+
 RUN mkdir -p /server
 
 WORKDIR /server

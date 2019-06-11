@@ -36,6 +36,8 @@ services:
     ports:
       - 8080:3000
     command: npm run webpack-dev
+    volumes:
+      - "./client:/server"
     networks:
       - public
       - internal
