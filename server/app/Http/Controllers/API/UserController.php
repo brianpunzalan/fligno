@@ -36,7 +36,7 @@ class UserController extends Controller
     public function search($query = '')
     {
         $results = $this->users->search($query);
-        return response()->guestList($results);
+        return response()->json($results);
     }
 
     /**
@@ -46,7 +46,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return respone()->json(User::all());
+        $users = $this->users->all()->makeHidden(['api_token']);
+        return response()->json($users);
     }
 
     /**
@@ -58,7 +59,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user = $this->users->create($request);
-        return response()->guest($user);
+        return response()->json($user);
     }
 
     /**
@@ -69,7 +70,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return response()->json($user);
+        return response()->json($user->makeHidden(['api_token']));
     }
 
     /**
@@ -81,7 +82,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user = $this->users->update($user->id, $request->input());
+        $user = $this->users->update($user->id, $request->input())->makeHidden(['api_token']);
         return response()->json($user);
     }
 

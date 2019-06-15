@@ -9,32 +9,14 @@
 @section('body')
     @component('components.navbar')
 		@endcomponent
-		<div id="profile">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-sm-12 col-md-4 border-right">
-					<div class="container">
-						<img class="img-thumbnail rounded-circle mt-5 mx-auto d-block" src="{{ asset(Storage::url($user->avatar)) }}">
-					</div>
-					</div>
-					<div class="col-sm-12 col-md-8">
-						<div id="personal-information" class="mt-5 text-center text-md-left">
-							<h1 class="display-2">{{ $user->first_name }} {{ $user->last_name }}</h1>
-							<div>
-								<a href="mailto:{{ $user->email}}">
-									<i class="fa fa-envelope"></i>
-									<span>{{ $user->email }}</span>
-								</a>
-							</div>
-							<div class="jumbotron jumbotron-fluid mt-5 p-5">
-								<div class="container">
-									<h1 class="display-5">About Me</h1>
-									<p class="lead">{{ $user->description }}</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<div id="profile"
+			@if (Auth::check())
+				data-auth='{{ auth()->user()->id === $user->id ? true : false  }}'
+			@endif
+			data-avatar='{{ asset(Storage::url($user->avatar)) }}'
+			data-first_name='{{ $user->first_name }}'
+			data-last_name='{{ $user->last_name }}'
+			data-email='{{ $user->email }}'
+			data-description='{{ $user->description }}'
+		></div>
 @endsection

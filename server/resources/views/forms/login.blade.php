@@ -8,6 +8,9 @@
 		@slot('header')
 				{{ __('Login') }}
 		@endslot
+		@slot('footer')
+			If you have time please review our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. It may help you get to know more about the application.
+		@endslot
 		<form action="{{ route('login') }}" method="post">
 			@csrf
 			<div class="form-group">
@@ -40,9 +43,6 @@
 				</a>
 			@endif
 		</form>
-		@slot('footer')
-			If you have time please review our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. It may help you get to know more about the application.
-		@endslot
 	@endcomponent
 	</div>
 @endsection

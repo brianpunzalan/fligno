@@ -5,6 +5,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class UsersTableSeeder extends Seeder
 {
@@ -23,11 +24,14 @@ class UsersTableSeeder extends Seeder
             'last_name' => env('INITIAL_ADMIN_LASTNAME', 'Administrator'),
             'email' => env('INITIAL_ADMIN_EMAIL', 'admin@fligno.com'),
             'password' => bcrypt(env('INITIAL_ADMIN_PASSWORD', 'test123')),
+            'is_admin' => true,
             'gender' => 'Others',
             'avatar' => 'avatars/' . $faker->image(storage_path('app/public/avatars'), 400,400, 'people', false),
             'description' => 'I am the administrator',
             'api_token' => Str::random(60),
         ]);
+
+        Log::debug($faker->image(storage_path('app/public/avatars'), 400, 400, 'people', false));
 
         // Faker generator
         factory(User::class, 50)->create();

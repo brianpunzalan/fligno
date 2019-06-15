@@ -4,7 +4,6 @@
 
 @section('headers')
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.1/cropper.min.css" />
-	<meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 @section('body')
@@ -12,6 +11,10 @@
 	@component('components.card')
 		@slot('header')
 			{{ __('Sign Up') }}
+		@endslot
+		@slot('footer')
+			By signing up, you indicate that you have read and agreed to Fligno's 
+			<a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
 		@endslot
 		<form action="{{ route('register.submit') }}" enctype="multipart/form-data" method="POST">
 			@csrf
@@ -62,75 +65,6 @@
 			</div>
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
-		@slot('footer')
-			By signing up, you indicate that you have read and agreed to Fligno's 
-			<a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
-		@endslot
 	@endcomponent
 	</div>
 @endsection
-
-{{-- @section('scripts')
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.1/cropper.min.js"></script>
-	<script>
-		function toggleContainer() {
-			const cropperContainer = document.getElementById('cropper-container');
-			const avatarContainer = document.getElementById('avatar-container');
-			avatarContainer.classList.toggle('d-none');
-			cropperContainer.classList.toggle('d-none');
-		}
-
-		{
-			function handleAvatarCancel() {
-				toggleContainer();
-			}
-
-			function handleAvatarSave() {
-				console.log('save');
-				toggleContainer();
-			}
-		}
-
-		{
-			const avatar = document.getElementById('avatar');
-			avatar.addEventListener('change', function(e)	{
-				const file = e.target.files[0];
-				const fileReader = new FileReader();
-				const image = document.getElementById('cropper-image');
-				const cropperContainer = document.getElementById('cropper-container');
-				const avatarContainer = document.getElementById('avatar-container');
-				const resultingImage = document.getElementById('cropper-resulting-image');
-				let cropper = null;
-
-				// switch container view
-				toggleContainer();
-
-				console.log('changed', file, image)
-
-				if (file) {
-					fileReader.readAsDataURL(file);
-				}
-
-				fileReader.addEventListener("load", function(e) {
-					console.log('loaded')
-					image.src = fileReader.result;
-					cropper = new Cropper(image, {
-						aspectRatio: 1 / 1,
-						crop(event) {
-							console.log(cropper.getCroppedCanvas());
-							resultingImage.src = cropper.getCroppedCanvas().toDataURL;
-						}
-					});
-				});
-			})
-		}
-
-		{
-			const form = document.getElementsByTagName('form');
-			form.addEventListener('submit', function (e) {
-				console.log(e);
-				return true;
-			})
-		}
-	</script>
-@endsection --}}

@@ -13,8 +13,8 @@ return [
     */
    
     'supportsCredentials' => false,
-    'allowedOrigins' => ['*'],
-    'allowedOriginsPatterns' => [],
+    'allowedOrigins' => explode(',', env('CORS_ALLOWED_ORIGINS')),
+    'allowedOriginsPatterns' => empty(env('CORS_ALLOWED_ORIGINS_PATTERNS')) ? [] : explode(',', env('CORS_ALLOWED_ORIGINS_PATTERNS')),
     'allowedHeaders' => ['*'],
     'allowedMethods' => ['*'],
     'exposedHeaders' => [],

@@ -3,13 +3,13 @@
 namespace Fligno\Repositories;
 
 use Fligno\User;
+use Fligno\Support\Facades\Avatar;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Image;
 
 class UserRepository {
 
@@ -95,15 +95,11 @@ class UserRepository {
 		
 		// handle avatar
 		$avatarPath = $request->file('avatar')->store('avatars', 'public');
-		$path = public_path(Storage::url($avatarPath));
-		$image = Image::make($path)->encode('jpeg');
 		$width = (int) $avatarCroppedData['avatar_crop_width'];
 		$height = (int) $avatarCroppedData['avatar_crop_height'];
 		$x = (int) $avatarCroppedData['avatar_crop_x'];
 		$y = (int) $avatarCroppedData['avatar_crop_y'];
-		$image->crop($width, $height, $x, $y);
-		$image->heighten(400);
-		$image->save($path);
+		Avatar::create($avatarPath, $x, $y, $width, $height, 400);
 		$data['avatar'] = $avatarPath;
 		
 		try {

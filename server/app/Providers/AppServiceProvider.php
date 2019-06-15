@@ -4,6 +4,7 @@ namespace Fligno\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Fligno\User;
+use Fligno\Services\Avatar;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // 
     }
 }

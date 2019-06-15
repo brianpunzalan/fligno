@@ -10728,3 +10728,21 @@ a.text-dark:focus {
   color: #3490dc;
 }
 
+.editable {
+  position: relative;
+}
+
+.editable > .action-icons {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.editable > .action-icons i {
+  border: 1px solid #474747;
+  border-radius: 100%;
+  background-color: #252525;
+  padding: 5px;
+  color: #fff;
+}
+

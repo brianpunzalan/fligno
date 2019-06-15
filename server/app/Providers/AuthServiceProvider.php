@@ -26,8 +26,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        // Auth::extend('admin', function ($app, $name, array $config) {
-
-        // })
+        // 
     }
 }
